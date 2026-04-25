@@ -1,0 +1,15 @@
+@font-face {
+  font-family: "NVIDIA-EMEA";
+  src: local("Arial");
+  font-display: swap;
+}
+
+:root {
+  --app-bg: #f4f4f4;
+  --app-text: #0a0a0a;
+}
+
+:root.dark {
+  --app-bg: #000000;
+  --app-text: #ffffff;
+}
