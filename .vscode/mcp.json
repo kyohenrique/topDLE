@@ -1,0 +1,8 @@
+{
+  "servers": {
+    "chrome": {
+      "command": "npx",
+      "args": ["-y", "chrome-mcp"]
+    }
+  }
+}
