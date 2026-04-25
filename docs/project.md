@@ -8,7 +8,7 @@ topDLE is a minimal and SEO-friendly catalog of daily guessing games (Wordle-lik
 
 - Next.js App Router
 - TypeScript
-- Tailwind CSS (NVIDIA-inspired theme tokens)
+- Tailwind CSS (Kraken-inspired theme tokens)
 - No extra runtime dependencies
 
 ## Core Features

@@ -1,0 +1,51 @@
+@font-face {
+  font-family: "Kraken-Brand";
+  src: local("IBM Plex Sans");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Kraken-Product";
+  src: local("IBM Plex Sans");
+  font-display: swap;
+}
+
+:root {
+  --app-bg: #f7f7fb;
+  --app-text: #101114;
+  --panel-bg: rgba(255, 255, 255, 0.86);
+  --panel-border: #dedee5;
+  --field-bg: #ffffff;
+  --card-bg: #ffffff;
+  --text-muted: #686b82;
+  --text-soft: #9497a9;
+  --accent: #7132f5;
+  --accent-strong: #5741d8;
+  --accent-soft: rgba(133, 91, 251, 0.16);
+  --ring: #7132f5;
+  --hover-glow: rgba(113, 50, 245, 0.28);
+  --success-bg: rgba(20, 158, 97, 0.16);
+  --success-text: #026b3f;
+  --select-bg: #ffffff;
+  --select-text: #101114;
+}
+
+:root.dark {
+  --app-bg: #0c0d16;
+  --app-text: #f4f2ff;
+  --panel-bg: rgba(17, 18, 30, 0.84);
+  --panel-border: #2e3047;
+  --field-bg: #17192a;
+  --card-bg: #161a2a;
+  --text-muted: #a7abbe;
+  --text-soft: #8f93a7;
+  --accent: #855bfb;
+  --accent-strong: #7132f5;
+  --accent-soft: rgba(133, 91, 251, 0.24);
+  --ring: #9f7dff;
+  --hover-glow: rgba(133, 91, 251, 0.4);
+  --success-bg: rgba(20, 158, 97, 0.22);
+  --success-text: #8ddfb8;
+  --select-bg: #191a28;
+  --select-text: #f4f2ff;
+}

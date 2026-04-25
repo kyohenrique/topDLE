@@ -5,9 +5,29 @@ export const uiText = {
     pt: "topDLE",
     en: "topDLE",
   },
+  headerEyebrow: {
+    pt: "Hub diário de adivinhação",
+    en: "Daily guessing hub",
+  },
   subtitle: {
     pt: "Jogos diários de adivinhação em um só lugar.",
     en: "Daily guessing games in one place.",
+  },
+  headerDescription: {
+    pt: "Descubra jogos de palavra, geografia e cultura pop com curadoria simples e rápida.",
+    en: "Discover word, geography, and pop culture games in a fast curated directory.",
+  },
+  statActiveGames: {
+    pt: "Jogos ativos",
+    en: "Active games",
+  },
+  statVisibleNow: {
+    pt: "Visíveis agora",
+    en: "Visible now",
+  },
+  statBilingual: {
+    pt: "PT e EN",
+    en: "PT and EN",
   },
   searchPlaceholder: {
     pt: "Buscar jogo...",

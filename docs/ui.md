@@ -2,10 +2,10 @@
 
 ## Visual Direction
 
-- NVIDIA-inspired dark-first look
-- Black/near-black surfaces
-- Green accent (`#76b900`) as interaction highlight
-- Sharp corners (`2px`) and compact spacing
+- Kraken-inspired crypto-fintech look
+- Glassy white/dark surfaces with subtle depth
+- Purple accent (`#7132f5`) as interaction highlight
+- Rounded corners (`12px`) and clean spacing
 
 ## Layout
 

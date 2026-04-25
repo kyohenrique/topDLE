@@ -5,26 +5,25 @@ const config = {
   theme: {
     extend: {
       colors: {
-        nv: {
-          green: "#76b900",
-          bg: "#000000",
-          surface: "#1a1a1a",
-          "gray-300": "#a7a7a7",
-          "gray-400": "#898989",
-          "gray-500": "#757575",
-          "gray-border": "#5e5e5e",
-          "button-hover": "#1eaedb",
-          "button-active": "#007fff",
+        kraken: {
+          purple: "#7132f5",
+          "purple-dark": "#5741d8",
+          "purple-deep": "#5b1ecf",
+          text: "#101114",
+          muted: "#686b82",
+          border: "#dedee5",
+          success: "#149e61",
         },
       },
       fontFamily: {
-        sans: ["NVIDIA-EMEA", "Arial", "Helvetica", "sans-serif"],
+        sans: ["Kraken-Product", "Helvetica Neue", "Helvetica", "Arial", "sans-serif"],
+        brand: ["Kraken-Brand", "IBM Plex Sans", "Helvetica", "Arial", "sans-serif"],
       },
       boxShadow: {
-        nv: "0 0 5px rgba(0, 0, 0, 0.3)",
+        kraken: "0px 4px 24px rgba(0, 0, 0, 0.03)",
       },
       borderRadius: {
-        nv: "2px",
+        kraken: "12px",
       },
     },
   },

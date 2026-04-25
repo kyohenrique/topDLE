@@ -90,126 +90,193 @@ export function GamesExplorer({ initialPage }: GamesExplorerProps) {
   const visibleGames = processedGames.slice(0, visibleCount);
 
   return (
-    <div className="relative min-h-screen text-[var(--app-text)]">
-      <div
-        className="pointer-events-none absolute inset-0 -z-10"
-        style={{
-          background:
-            "radial-gradient(circle at 12% 8%, rgba(118,185,0,0.18), transparent 36%), radial-gradient(circle at 88% 14%, rgba(28,141,177,0.12), transparent 34%), linear-gradient(180deg, transparent, rgba(118,185,0,0.06))",
-        }}
-      />
+    <div className="relative isolate min-h-screen text-[var(--app-text)]">
+      <div className="page-animated-bg" aria-hidden="true" />
+      <div className="page-static-overlay" aria-hidden="true" />
 
-      <main className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6">
+      <main className="relative z-10 mx-auto w-full max-w-6xl px-4 py-10 sm:px-6">
         <header
-          className="mb-8 space-y-5 rounded-2xl border p-5 shadow-[0_18px_38px_-24px_rgba(0,0,0,0.55)] backdrop-blur-md"
+          className="kraken-header mb-8 rounded-2xl border p-0 shadow-[0_18px_38px_-24px_rgba(0,0,0,0.55)] backdrop-blur-md"
           style={{
             backgroundColor: "var(--panel-bg)",
             borderColor: "var(--panel-border)",
           }}
         >
-          <div className="space-y-2">
-            <h1 className="text-4xl font-bold leading-tight">{t(uiText.title, locale)}</h1>
-            <p className="text-sm" style={{ color: "var(--text-muted)" }}>
-              {t(uiText.subtitle, locale)}
-            </p>
-          </div>
+          <div className="space-y-6 p-5">
+            <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+              <div className="max-w-2xl space-y-3">
+                <span
+                  className="inline-flex rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.08em]"
+                  style={{
+                    borderColor: "rgba(133, 91, 251, 0.45)",
+                    backgroundColor: "rgba(133, 91, 251, 0.14)",
+                    color: "var(--accent-strong)",
+                  }}
+                >
+                  {t(uiText.headerEyebrow, locale)}
+                </span>
 
-          <div className="grid grid-cols-1 gap-3 md:grid-cols-4">
-            <input
-              type="text"
-              value={search}
-              onChange={(event) => {
-                setSearch(event.target.value);
-                setVisibleCount(Math.max(initialPage * PAGE_SIZE, PAGE_SIZE));
-              }}
-              placeholder={t(uiText.searchPlaceholder, locale)}
-              className="rounded-xl border px-3 py-2 text-sm outline-none transition focus:ring-2"
-              style={{
-                borderColor: "var(--panel-border)",
-                backgroundColor: "var(--field-bg)",
-                color: "var(--app-text)",
-                boxShadow: "inset 0 0 0 1px transparent",
-                caretColor: "var(--accent)",
-              }}
-              aria-label={t(uiText.searchPlaceholder, locale)}
-            />
+                <h1
+                  className="text-4xl font-bold leading-tight"
+                  style={{
+                    fontFamily: "Kraken-Brand, IBM Plex Sans, Helvetica, Arial, sans-serif",
+                    letterSpacing: "-0.5px",
+                    textShadow: "0 0 20px rgba(113, 50, 245, 0.2)",
+                  }}
+                >
+                  {t(uiText.title, locale)}
+                </h1>
 
-            <label
-              className="flex items-center gap-2 rounded-xl border px-3 py-2 text-sm"
-              style={{
-                borderColor: "var(--panel-border)",
-                backgroundColor: "var(--field-bg)",
-              }}
-            >
-              <span className="shrink-0" style={{ color: "var(--text-muted)" }}>
-                {t(uiText.sortLabel, locale)}
-              </span>
-              <select
-                value={sortMode}
+                <p className="text-sm leading-relaxed" style={{ color: "var(--text-muted)" }}>
+                  {t(uiText.subtitle, locale)} {t(uiText.headerDescription, locale)}
+                </p>
+              </div>
+
+              <div className="grid grid-cols-3 gap-2 md:min-w-[300px]">
+                <div
+                  className="rounded-xl border px-3 py-2"
+                  style={{
+                    borderColor: "var(--panel-border)",
+                    backgroundColor: "var(--field-bg)",
+                  }}
+                >
+                  <p className="text-lg font-bold" style={{ color: "var(--accent-strong)" }}>
+                    {games.length}
+                  </p>
+                  <p className="text-[11px]" style={{ color: "var(--text-soft)" }}>
+                    {t(uiText.statActiveGames, locale)}
+                  </p>
+                </div>
+
+                <div
+                  className="rounded-xl border px-3 py-2"
+                  style={{
+                    borderColor: "var(--panel-border)",
+                    backgroundColor: "var(--field-bg)",
+                  }}
+                >
+                  <p className="text-lg font-bold" style={{ color: "var(--accent-strong)" }}>
+                    {visibleGames.length}
+                  </p>
+                  <p className="text-[11px]" style={{ color: "var(--text-soft)" }}>
+                    {t(uiText.statVisibleNow, locale)}
+                  </p>
+                </div>
+
+                <div
+                  className="rounded-xl border px-3 py-2"
+                  style={{
+                    borderColor: "var(--panel-border)",
+                    backgroundColor: "var(--field-bg)",
+                  }}
+                >
+                  <p className="text-lg font-bold" style={{ color: "var(--accent-strong)" }}>
+                    PT/EN
+                  </p>
+                  <p className="text-[11px]" style={{ color: "var(--text-soft)" }}>
+                    {t(uiText.statBilingual, locale)}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 gap-3 md:grid-cols-4">
+              <input
+                type="text"
+                value={search}
                 onChange={(event) => {
-                  setSortMode(event.target.value as SortMode);
+                  setSearch(event.target.value);
                   setVisibleCount(Math.max(initialPage * PAGE_SIZE, PAGE_SIZE));
                 }}
-                className="w-full bg-transparent font-semibold outline-none"
-                style={{ color: "var(--app-text)" }}
-                aria-label={t(uiText.sortLabel, locale)}
+                placeholder={t(uiText.searchPlaceholder, locale)}
+                className="ui-control rounded-xl border px-3 py-2 text-sm outline-none transition focus:ring-2"
+                style={{
+                  borderColor: "var(--panel-border)",
+                  backgroundColor: "var(--field-bg)",
+                  color: "var(--app-text)",
+                  boxShadow: "inset 0 0 0 1px transparent",
+                  caretColor: "var(--accent)",
+                }}
+                aria-label={t(uiText.searchPlaceholder, locale)}
+              />
+
+              <label
+                className="ui-control flex items-center gap-2 rounded-xl border px-3 py-2 text-sm"
+                style={{
+                  borderColor: "var(--panel-border)",
+                  backgroundColor: "var(--field-bg)",
+                }}
               >
-                {sortModes.map((mode) => (
-                  <option key={mode} value={mode} style={{ backgroundColor: "#111", color: "#f6f6f6" }}>
-                    {t(uiText.sort[mode], locale)}
+                <span className="shrink-0" style={{ color: "var(--text-muted)" }}>
+                  {t(uiText.sortLabel, locale)}
+                </span>
+                <select
+                  value={sortMode}
+                  onChange={(event) => {
+                    setSortMode(event.target.value as SortMode);
+                    setVisibleCount(Math.max(initialPage * PAGE_SIZE, PAGE_SIZE));
+                  }}
+                  className="w-full bg-transparent font-semibold outline-none"
+                  style={{ color: "var(--app-text)" }}
+                  aria-label={t(uiText.sortLabel, locale)}
+                >
+                  {sortModes.map((mode) => (
+                    <option key={mode} value={mode} style={{ backgroundColor: "var(--select-bg)", color: "var(--select-text)" }}>
+                      {t(uiText.sort[mode], locale)}
+                    </option>
+                  ))}
+                </select>
+              </label>
+
+              <label
+                className="ui-control flex items-center gap-2 rounded-xl border px-3 py-2 text-sm"
+                style={{
+                  borderColor: "var(--panel-border)",
+                  backgroundColor: "var(--field-bg)",
+                }}
+              >
+                <span className="shrink-0" style={{ color: "var(--text-muted)" }}>
+                  {t(uiText.language, locale)}
+                </span>
+                <select
+                  value={locale}
+                  onChange={(event) => setLocale(event.target.value as Locale)}
+                  className="w-full bg-transparent font-semibold outline-none"
+                  style={{ color: "var(--app-text)" }}
+                  aria-label={t(uiText.language, locale)}
+                >
+                  <option value="pt" style={{ backgroundColor: "var(--select-bg)", color: "var(--select-text)" }}>
+                    PT
                   </option>
-                ))}
-              </select>
-            </label>
+                  <option value="en" style={{ backgroundColor: "var(--select-bg)", color: "var(--select-text)" }}>
+                    EN
+                  </option>
+                </select>
+              </label>
 
-            <label
-              className="flex items-center gap-2 rounded-xl border px-3 py-2 text-sm"
-              style={{
-                borderColor: "var(--panel-border)",
-                backgroundColor: "var(--field-bg)",
-              }}
-            >
-              <span className="shrink-0" style={{ color: "var(--text-muted)" }}>
-                {t(uiText.language, locale)}
-              </span>
-              <select
-                value={locale}
-                onChange={(event) => setLocale(event.target.value as Locale)}
-                className="w-full bg-transparent font-semibold outline-none"
-                style={{ color: "var(--app-text)" }}
-                aria-label={t(uiText.language, locale)}
+              <button
+                type="button"
+                onClick={() => setTheme((current) => (current === "dark" ? "light" : "dark"))}
+                className="ui-control kraken-button rounded-xl border px-3 py-2 text-sm font-bold"
+                style={{
+                  borderColor: "var(--accent)",
+                  background:
+                    theme === "dark"
+                      ? "linear-gradient(90deg, rgba(133,91,251,0.26), rgba(113,50,245,0.1))"
+                      : "linear-gradient(90deg, rgba(133,91,251,0.2), rgba(113,50,245,0.08))",
+                  color: "var(--app-text)",
+                }}
               >
-                <option value="pt" style={{ backgroundColor: "#111", color: "#f6f6f6" }}>
-                  PT
-                </option>
-                <option value="en" style={{ backgroundColor: "#111", color: "#f6f6f6" }}>
-                  EN
-                </option>
-              </select>
-            </label>
-
-            <button
-              type="button"
-              onClick={() => setTheme((current) => (current === "dark" ? "light" : "dark"))}
-              className="rounded-xl border px-3 py-2 text-sm font-bold transition hover:-translate-y-0.5"
-              style={{
-                borderColor: "var(--accent)",
-                background:
-                  theme === "dark"
-                    ? "linear-gradient(90deg, rgba(118,185,0,0.18), rgba(118,185,0,0.04))"
-                    : "linear-gradient(90deg, rgba(118,185,0,0.22), rgba(118,185,0,0.08))",
-                color: "var(--app-text)",
-              }}
-            >
-              {theme === "dark" ? "☾" : "☀"} {t(uiText.theme, locale)}: {theme === "dark" ? t(uiText.dark, locale) : t(uiText.light, locale)}
-            </button>
+                {theme === "dark" ? "☾" : "☀"} {t(uiText.theme, locale)}: {theme === "dark" ? t(uiText.dark, locale) : t(uiText.light, locale)}
+              </button>
+            </div>
           </div>
         </header>
 
         {visibleGames.length ? (
           <section className="grid grid-cols-1 gap-4 lg:grid-cols-2" aria-label={t(uiText.categories, locale)}>
-            {visibleGames.map((game) => (
-              <GameCard key={game.id} game={game} locale={locale} />
+            {visibleGames.map((game, index) => (
+              <GameCard key={game.id} game={game} locale={locale} position={index + 1} />
             ))}
           </section>
         ) : (
