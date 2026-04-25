@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
 
 import { GameCard } from "@/components/game-card";
 import { Footer } from "@/components/footer";
@@ -11,13 +10,7 @@ import { filterAndSortGames } from "@/lib/games";
 import { sortModes, t, uiText } from "@/lib/i18n";
 import type { Locale, SortMode } from "@/types/game";
 
-type GamesExplorerProps = {
-  initialPage: number;
-};
-
-export function GamesExplorer({ initialPage }: GamesExplorerProps) {
-  const router = useRouter();
-  const pathname = usePathname();
+export function GamesExplorer() {
   const sentinelRef = useRef<HTMLDivElement | null>(null);
 
   const [locale, setLocale] = useState<Locale>(() => {
@@ -38,7 +31,16 @@ export function GamesExplorer({ initialPage }: GamesExplorerProps) {
   });
   const [search, setSearch] = useState("");
   const [sortMode, setSortMode] = useState<SortMode>("manual");
-  const [visibleCount, setVisibleCount] = useState(initialPage * PAGE_SIZE);
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+
+  useEffect(() => {
+    if (!window.location.search) {
+      return;
+    }
+
+    const cleanUrl = `${window.location.pathname}${window.location.hash}`;
+    window.history.replaceState(window.history.state, "", cleanUrl);
+  }, []);
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEYS.locale, locale);
@@ -81,11 +83,6 @@ export function GamesExplorer({ initialPage }: GamesExplorerProps) {
 
     return () => observer.disconnect();
   }, [processedGames.length]);
-
-  useEffect(() => {
-    const nextPage = Math.max(1, Math.ceil(visibleCount / PAGE_SIZE));
-    router.replace(`${pathname}?page=${nextPage}`, { scroll: false });
-  }, [visibleCount, pathname, router]);
 
   const visibleGames = processedGames.slice(0, visibleCount);
 
@@ -186,7 +183,7 @@ export function GamesExplorer({ initialPage }: GamesExplorerProps) {
                 value={search}
                 onChange={(event) => {
                   setSearch(event.target.value);
-                  setVisibleCount(Math.max(initialPage * PAGE_SIZE, PAGE_SIZE));
+                  setVisibleCount(PAGE_SIZE);
                 }}
                 placeholder={t(uiText.searchPlaceholder, locale)}
                 className="ui-control rounded-xl border px-3 py-2 text-sm outline-none transition focus:ring-2"
@@ -214,7 +211,7 @@ export function GamesExplorer({ initialPage }: GamesExplorerProps) {
                   value={sortMode}
                   onChange={(event) => {
                     setSortMode(event.target.value as SortMode);
-                    setVisibleCount(Math.max(initialPage * PAGE_SIZE, PAGE_SIZE));
+                    setVisibleCount(PAGE_SIZE);
                   }}
                   className="w-full bg-transparent font-semibold outline-none"
                   style={{ color: "var(--app-text)" }}
