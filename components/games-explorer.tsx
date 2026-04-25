@@ -90,15 +90,28 @@ export function GamesExplorer({ initialPage }: GamesExplorerProps) {
   const visibleGames = processedGames.slice(0, visibleCount);
 
   return (
-    <div className="relative min-h-screen bg-nv-bg text-white">
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,_rgba(118,185,0,0.2),_transparent_45%),linear-gradient(180deg,_#000_0%,_#101010_65%,_#000_100%)]" />
+    <div className="relative min-h-screen text-[var(--app-text)]">
+      <div
+        className="pointer-events-none absolute inset-0 -z-10"
+        style={{
+          background:
+            "radial-gradient(circle at 12% 8%, rgba(118,185,0,0.18), transparent 36%), radial-gradient(circle at 88% 14%, rgba(28,141,177,0.12), transparent 34%), linear-gradient(180deg, transparent, rgba(118,185,0,0.06))",
+        }}
+      />
 
       <main className="mx-auto w-full max-w-6xl px-4 py-10 sm:px-6">
-        <header className="mb-8 space-y-5 rounded-[2px] border border-nv-gray-border bg-black/70 p-4 shadow-nv backdrop-blur-sm">
+        <header
+          className="mb-8 space-y-5 rounded-2xl border p-5 shadow-[0_18px_38px_-24px_rgba(0,0,0,0.55)] backdrop-blur-md"
+          style={{
+            backgroundColor: "var(--panel-bg)",
+            borderColor: "var(--panel-border)",
+          }}
+        >
           <div className="space-y-2">
-            <p className="text-xs font-bold uppercase tracking-wider text-nv-green">NVIDIA inspired</p>
             <h1 className="text-4xl font-bold leading-tight">{t(uiText.title, locale)}</h1>
-            <p className="text-sm text-nv-gray-300">{t(uiText.subtitle, locale)}</p>
+            <p className="text-sm" style={{ color: "var(--text-muted)" }}>
+              {t(uiText.subtitle, locale)}
+            </p>
           </div>
 
           <div className="grid grid-cols-1 gap-3 md:grid-cols-4">
@@ -110,41 +123,66 @@ export function GamesExplorer({ initialPage }: GamesExplorerProps) {
                 setVisibleCount(Math.max(initialPage * PAGE_SIZE, PAGE_SIZE));
               }}
               placeholder={t(uiText.searchPlaceholder, locale)}
-              className="rounded-[2px] border border-nv-gray-border bg-nv-surface px-3 py-2 text-sm text-white outline-none ring-nv-green transition focus:ring-2"
+              className="rounded-xl border px-3 py-2 text-sm outline-none transition focus:ring-2"
+              style={{
+                borderColor: "var(--panel-border)",
+                backgroundColor: "var(--field-bg)",
+                color: "var(--app-text)",
+                boxShadow: "inset 0 0 0 1px transparent",
+                caretColor: "var(--accent)",
+              }}
               aria-label={t(uiText.searchPlaceholder, locale)}
             />
 
-            <label className="flex items-center gap-2 rounded-[2px] border border-nv-gray-border bg-nv-surface px-3 py-2 text-sm">
-              <span className="shrink-0 text-nv-gray-300">{t(uiText.sortLabel, locale)}</span>
+            <label
+              className="flex items-center gap-2 rounded-xl border px-3 py-2 text-sm"
+              style={{
+                borderColor: "var(--panel-border)",
+                backgroundColor: "var(--field-bg)",
+              }}
+            >
+              <span className="shrink-0" style={{ color: "var(--text-muted)" }}>
+                {t(uiText.sortLabel, locale)}
+              </span>
               <select
                 value={sortMode}
                 onChange={(event) => {
                   setSortMode(event.target.value as SortMode);
                   setVisibleCount(Math.max(initialPage * PAGE_SIZE, PAGE_SIZE));
                 }}
-                className="w-full bg-transparent font-semibold text-white outline-none"
+                className="w-full bg-transparent font-semibold outline-none"
+                style={{ color: "var(--app-text)" }}
                 aria-label={t(uiText.sortLabel, locale)}
               >
                 {sortModes.map((mode) => (
-                  <option key={mode} value={mode} className="bg-black text-white">
+                  <option key={mode} value={mode} style={{ backgroundColor: "#111", color: "#f6f6f6" }}>
                     {t(uiText.sort[mode], locale)}
                   </option>
                 ))}
               </select>
             </label>
 
-            <label className="flex items-center gap-2 rounded-[2px] border border-nv-gray-border bg-nv-surface px-3 py-2 text-sm">
-              <span className="shrink-0 text-nv-gray-300">{t(uiText.language, locale)}</span>
+            <label
+              className="flex items-center gap-2 rounded-xl border px-3 py-2 text-sm"
+              style={{
+                borderColor: "var(--panel-border)",
+                backgroundColor: "var(--field-bg)",
+              }}
+            >
+              <span className="shrink-0" style={{ color: "var(--text-muted)" }}>
+                {t(uiText.language, locale)}
+              </span>
               <select
                 value={locale}
                 onChange={(event) => setLocale(event.target.value as Locale)}
-                className="w-full bg-transparent font-semibold text-white outline-none"
+                className="w-full bg-transparent font-semibold outline-none"
+                style={{ color: "var(--app-text)" }}
                 aria-label={t(uiText.language, locale)}
               >
-                <option value="pt" className="bg-black text-white">
+                <option value="pt" style={{ backgroundColor: "#111", color: "#f6f6f6" }}>
                   PT
                 </option>
-                <option value="en" className="bg-black text-white">
+                <option value="en" style={{ backgroundColor: "#111", color: "#f6f6f6" }}>
                   EN
                 </option>
               </select>
@@ -153,9 +191,17 @@ export function GamesExplorer({ initialPage }: GamesExplorerProps) {
             <button
               type="button"
               onClick={() => setTheme((current) => (current === "dark" ? "light" : "dark"))}
-              className="rounded-[2px] border-2 border-nv-green px-3 py-2 text-sm font-bold text-white transition hover:bg-nv-button-hover"
+              className="rounded-xl border px-3 py-2 text-sm font-bold transition hover:-translate-y-0.5"
+              style={{
+                borderColor: "var(--accent)",
+                background:
+                  theme === "dark"
+                    ? "linear-gradient(90deg, rgba(118,185,0,0.18), rgba(118,185,0,0.04))"
+                    : "linear-gradient(90deg, rgba(118,185,0,0.22), rgba(118,185,0,0.08))",
+                color: "var(--app-text)",
+              }}
             >
-              {t(uiText.theme, locale)}: {theme === "dark" ? t(uiText.dark, locale) : t(uiText.light, locale)}
+              {theme === "dark" ? "☾" : "☀"} {t(uiText.theme, locale)}: {theme === "dark" ? t(uiText.dark, locale) : t(uiText.light, locale)}
             </button>
           </div>
         </header>
@@ -167,7 +213,14 @@ export function GamesExplorer({ initialPage }: GamesExplorerProps) {
             ))}
           </section>
         ) : (
-          <p className="rounded-[2px] border border-nv-gray-border bg-nv-surface p-4 text-sm text-nv-gray-300">
+          <p
+            className="rounded-xl border p-4 text-sm"
+            style={{
+              borderColor: "var(--panel-border)",
+              backgroundColor: "var(--card-bg)",
+              color: "var(--text-muted)",
+            }}
+          >
             {t(uiText.noResults, locale)}
           </p>
         )}
